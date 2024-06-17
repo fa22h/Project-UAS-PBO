@@ -4,19 +4,19 @@
  */
 package view;
 
+import javax.swing.JScrollPane;
+
 /**
  *
  * @author fatih
  */
 public class MainFrame extends javax.swing.JFrame {
-    LoginPanel loginPanel()
-
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        jScrollPane1.setViewportView(this);
+        jScrollPane1.setViewportView(new LoginPanel(jScrollPane1));
     }
 
     /**
@@ -33,8 +33,11 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sampling APP");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(480, 480));
         setResizable(false);
+        setSize(new java.awt.Dimension(500, 500));
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

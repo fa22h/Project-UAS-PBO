@@ -1,0 +1,5 @@
+- set maximum jumlah sampel sesuai jumlah baris
+
+
+opsional:
+- Ubah warna
