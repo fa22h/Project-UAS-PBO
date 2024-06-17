@@ -5,6 +5,7 @@
 package view;
 
 import javax.swing.JScrollPane;
+import view.LoginPanel;
 
 /**
  *

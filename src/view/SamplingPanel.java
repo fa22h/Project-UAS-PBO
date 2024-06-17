@@ -4,17 +4,27 @@
  */
 package view;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.util.List;
+
+import model.CSVHandler;
 
 /**
  *
  * @author fatih
  */
 public class SamplingPanel extends javax.swing.JPanel {
-    JScrollPane jScrollPane;
+    private JScrollPane jScrollPane;
+    private static String selectedMethod;
+    private String[] headers;
+    private List<String[]> values;
 
     /**
      * Creates new form SamplingPanel
@@ -101,10 +111,15 @@ public class SamplingPanel extends javax.swing.JPanel {
         jumlahSampelSpinner.setModel(new javax.swing.SpinnerNumberModel(5, 1, null, 1));
 
         pilihOutputButton.setText("Ambil Sampel");
+        pilihOutputButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pilihOutputButtonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Size:");
 
-        sizeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sizeComboBox.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -131,10 +146,9 @@ public class SamplingPanel extends javax.swing.JPanel {
                                                 .addGap(23, 23, 23)
                                                 .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(170, 170, 170)
-                                        .addComponent(pilihOutputButton))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(pilihOutputButton)
+                                                    .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,9 +188,10 @@ public class SamplingPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jumlahSampelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pilihOutputButton))
-                .addContainerGap(179, Short.MAX_VALUE))
+                    .addComponent(jumlahSampelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pilihOutputButton)
+                .addContainerGap(147, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,6 +205,11 @@ public class SamplingPanel extends javax.swing.JPanel {
 
         if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
             filePathTextField.setText(chooser.getSelectedFile().toString());
+            //Baca file csv, lalu simpan datanya
+            CSVHandler ch = new CSVHandler(chooser.getSelectedFile().toString());
+            headers = ch.getHeaders();
+            values = ch.getValues();
+            sizeComboBox.setModel(new DefaultComboBoxModel<>(headers));
         }
         else{
             JOptionPane.showMessageDialog(this, "No Selection");
@@ -198,20 +218,36 @@ public class SamplingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_pilihFileButtonActionPerformed
 
     private void simpleWRRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpleWRRadioButtonActionPerformed
-        // TODO add your handling code here:
+        selectedMethod = "srs wr";
+        if(sizeComboBox.isEnabled()){
+            sizeComboBox.setEnabled(false);
+        }
     }//GEN-LAST:event_simpleWRRadioButtonActionPerformed
 
     private void simpleWORRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpleWORRadioButtonActionPerformed
-        // TODO add your handling code here:
+        selectedMethod = "srs wor";
+        if(sizeComboBox.isEnabled()){
+            sizeComboBox.setEnabled(false);
+        }
     }//GEN-LAST:event_simpleWORRadioButtonActionPerformed
 
     private void systematicRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_systematicRadioButtonActionPerformed
-        // TODO add your handling code here:
+        selectedMethod = "systematic";
+        if(sizeComboBox.isEnabled()){
+            sizeComboBox.setEnabled(false);
+        }
     }//GEN-LAST:event_systematicRadioButtonActionPerformed
 
     private void ppsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppsButtonActionPerformed
-        // TODO add your handling code here:
+        selectedMethod = "pps";
+        if(!sizeComboBox.isEnabled()){
+            sizeComboBox.setEnabled(true);
+        }
     }//GEN-LAST:event_ppsButtonActionPerformed
+
+    private void pilihOutputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pilihOutputButtonActionPerformed
+        System.out.println(selectedMethod);
+    }//GEN-LAST:event_pilihOutputButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
