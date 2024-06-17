@@ -5,8 +5,11 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +37,15 @@ public class CSVHandler {
     }
 
     private void readFile(){
-        try(BufferedReader br = new BufferedReader(new FileReader(path));){
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8));){
+            //Skip Byte Order Mark kalau ada
+            if(br.ready() && br.markSupported()){
+                br.mark(1);
+                if(br.read() != '\uFEFF'){
+                    br.reset();
+                }
+            }
+
             String headerLine = br.readLine();
 
             if(headerLine != null){

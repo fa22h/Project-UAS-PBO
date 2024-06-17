@@ -58,6 +58,7 @@ public class SamplingPanel extends javax.swing.JPanel {
         pilihOutputButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         sizeComboBox = new javax.swing.JComboBox<>();
+        lhatDataButton = new javax.swing.JButton();
 
         pilihFileButton.setText("Pilih File");
         pilihFileButton.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +122,13 @@ public class SamplingPanel extends javax.swing.JPanel {
 
         sizeComboBox.setEnabled(false);
 
+        lhatDataButton.setText("Lihat Data");
+        lhatDataButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lhatDataButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,13 +154,15 @@ public class SamplingPanel extends javax.swing.JPanel {
                                                 .addGap(23, 23, 23)
                                                 .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(pilihOutputButton)
-                                                    .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                .addComponent(sizeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jumlahSampelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jumlahSampelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lhatDataButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(pilihOutputButton)))
                                 .addGap(0, 56, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pilihFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,7 +200,9 @@ public class SamplingPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(jumlahSampelSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pilihOutputButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pilihOutputButton)
+                    .addComponent(lhatDataButton))
                 .addContainerGap(147, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -210,6 +222,7 @@ public class SamplingPanel extends javax.swing.JPanel {
             headers = ch.getHeaders();
             values = ch.getValues();
             sizeComboBox.setModel(new DefaultComboBoxModel<>(headers));
+            JOptionPane.showMessageDialog(this, "File berhasil dimuat");
         }
         else{
             JOptionPane.showMessageDialog(this, "No Selection");
@@ -246,8 +259,18 @@ public class SamplingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ppsButtonActionPerformed
 
     private void pilihOutputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pilihOutputButtonActionPerformed
-        System.out.println(selectedMethod);
+        
     }//GEN-LAST:event_pilihOutputButtonActionPerformed
+
+    private void lhatDataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lhatDataButtonActionPerformed
+        if(headers != null){
+            TableFrame tableFrame = new TableFrame(headers, values);
+            tableFrame.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Belum ada file yang dipilih");
+        }
+    }//GEN-LAST:event_lhatDataButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -258,6 +281,7 @@ public class SamplingPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jumlahDataLabel;
     private javax.swing.JSpinner jumlahSampelSpinner;
+    private javax.swing.JButton lhatDataButton;
     private javax.swing.ButtonGroup methodButtonGroup;
     private javax.swing.JButton pilihFileButton;
     private javax.swing.JButton pilihOutputButton;

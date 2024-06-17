@@ -41,10 +41,7 @@
                                               <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
                                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="pilihOutputButton" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="sizeComboBox" min="-2" pref="139" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="sizeComboBox" min="-2" pref="139" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -52,6 +49,11 @@
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jumlahSampelSpinner" min="-2" pref="60" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lhatDataButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="pilihOutputButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
@@ -102,7 +104,10 @@
                   <Component id="jumlahSampelSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pilihOutputButton" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="pilihOutputButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lhatDataButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="147" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -217,6 +222,14 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="lhatDataButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Lihat Data"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lhatDataButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

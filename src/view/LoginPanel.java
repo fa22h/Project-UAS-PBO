@@ -4,6 +4,7 @@
  */
 package view;
 
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 /**
@@ -116,7 +117,7 @@ public class LoginPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void guestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestButtonActionPerformed
