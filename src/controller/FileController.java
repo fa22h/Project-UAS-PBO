@@ -10,15 +10,28 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.CSVReader;
 import model.CSVWriter;
+import view.SamplingPanel;
 
 /**
  *
  * @author fatih
  */
 public class FileController {
+    private String[] headers;
+    private List<String[]> values;
+
+    public String[] getHeaders() {
+        return headers;
+    }
+
+    public List<String[]> getValues() {
+        return values;
+    }
+
     public boolean saveFileCSV(List<String[]> values, String[] headers){
         
         JFileChooser chooser = new JFileChooser();
@@ -34,5 +47,17 @@ public class FileController {
             }
         }
         return false;
+    }
+
+    public boolean readFileCSV(String path){
+        //Baca file csv, lalu simpan datanya
+        try {
+            CSVReader ch = new CSVReader(path);
+            headers = ch.getHeaders();
+            values = ch.getValues();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

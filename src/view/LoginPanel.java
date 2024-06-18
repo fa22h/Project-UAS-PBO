@@ -5,7 +5,10 @@
 package view;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+
+import controller.Login;
 
 /**
  *
@@ -117,7 +120,14 @@ public class LoginPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        
+        Login login = new Login();
+        if(login.isRegistered(usernameTextField.getText(), String.valueOf(passwordField.getPassword()))){
+            JOptionPane.showMessageDialog(this, "Selamat Datang " + login.getNama());
+            jScrollPane.setViewportView(new SamplingPanel(jScrollPane, login.getUser_id()));
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Username atau Password salah!");
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void guestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestButtonActionPerformed
