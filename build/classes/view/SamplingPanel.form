@@ -51,9 +51,9 @@
                                       <Component id="jumlahSampelSpinner" min="-2" pref="60" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lhatDataButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lihatDataButton" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="pilihOutputButton" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ambilSampelButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
@@ -105,8 +105,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="pilihOutputButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lhatDataButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ambilSampelButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lihatDataButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="147" max="32767" attributes="0"/>
           </Group>
@@ -199,17 +199,21 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="pilihOutputButton">
+    <Component class="javax.swing.JButton" name="ambilSampelButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ambil Sampel"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pilihOutputButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambilSampelButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="sizeComboBox"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Size:"/>
+        <Property name="toolTipText" type="java.lang.String" value="Size harus bilangan bulat"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="sizeComboBox">
@@ -223,12 +227,12 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="lhatDataButton">
+    <Component class="javax.swing.JButton" name="lihatDataButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Lihat Data"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lhatDataButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lihatDataButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

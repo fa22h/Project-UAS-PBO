@@ -16,9 +16,16 @@ import model.Systematic;
  */
 public class SamplingController {
     private List<String[]> population;
+    private int sampleCount;
     private SamplingMethod sm;
+
+    public void setSizeIndex(int size) {
+        sm.setSizeIndex(size);
+    }
+
     public SamplingController(List<String[]> population, String samplingMethod, int sampleCount){
         this.population = population;
+        this.sampleCount = sampleCount;
         if(samplingMethod.equalsIgnoreCase("srs wr")){
             sm = new SimpleWR();
         }
@@ -31,5 +38,10 @@ public class SamplingController {
         else if(samplingMethod.equalsIgnoreCase("pps")){
             sm = new ProportionToSize();
         }
+    }
+
+    public List<String[]> getSamples(){
+        List<String[]> samples = sm.getSample(population, sampleCount, population.size());
+        return samples;
     }
 }

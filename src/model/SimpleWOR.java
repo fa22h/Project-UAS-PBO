@@ -4,6 +4,9 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author fatih
@@ -11,7 +14,19 @@ package model;
 public class SimpleWOR extends SamplingMethod{
     
     @Override
-    public List<String[]> getSample(){
-        
+    public List<String[]> getSample(List<String[]> population, int sampleCount, int populationCount){
+        //Ambil angka random unik
+        int[] randNumber = super.getRandomUniqueInt(sampleCount, populationCount);
+        if(randNumber == null){
+            return null;
+        }
+
+        //Ambil sampel
+        List<String[]> selectedSamples = new ArrayList<String[]>();
+        for(int i = 0; i < sampleCount; i++){
+            selectedSamples.add(population.get(randNumber[i]));
+        }
+
+        return selectedSamples;
     }
 }

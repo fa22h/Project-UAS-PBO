@@ -4,8 +4,16 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/view/SamplingPanel.java</file>
+            <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/model/SimpleWR.java</file>
+            <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/model/CSVHandler.java</file>
+            <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/model/Systematic.java</file>
+            <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/model/ProportionToSize.java</file>
+            <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/model/SamplingMethod.java</file>
             <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/view/MainFrame.java</file>
+            <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/controller/SamplingController.java</file>
+            <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/view/TableFrame.java</file>
             <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/view/LoginPanel.java</file>
+            <file>file:/D:/DATA/Semester%204/PBO/Sampling%20APP/src/model/SimpleWOR.java</file>
         </group>
     </open-files>
 </project-private>
