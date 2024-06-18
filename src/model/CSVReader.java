@@ -6,7 +6,6 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -17,13 +16,13 @@ import java.util.List;
  *
  * @author fatih
  */
-public class CSVHandler {
+public class CSVReader {
     private String path;
     private String delimiter = ",";
     private String[] headers;
     private List<String[]> values = new ArrayList<String[]>();
 
-    public CSVHandler(String path){
+    public CSVReader(String path){
         this.path = path;
         readFile();
     }

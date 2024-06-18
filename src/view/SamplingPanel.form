@@ -54,6 +54,8 @@
                                       <Component id="lihatDataButton" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="ambilSampelButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="simpanSampelButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
@@ -107,6 +109,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="ambilSampelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lihatDataButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="simpanSampelButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="147" max="32767" attributes="0"/>
           </Group>
@@ -233,6 +236,15 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lihatDataButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="simpanSampelButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Simpan Sampel"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simpanSampelButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

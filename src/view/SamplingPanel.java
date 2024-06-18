@@ -13,11 +13,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controller.FileController;
 import controller.SamplingController;
 
 import java.util.List;
 
-import model.CSVHandler;
+import model.CSVReader;
 
 /**
  *
@@ -28,6 +29,7 @@ public class SamplingPanel extends javax.swing.JPanel {
     private String selectedMethod;
     private String[] headers;
     private List<String[]> values;
+    private List<String[]> samples;
 
     /**
      * Creates new form SamplingPanel
@@ -62,6 +64,7 @@ public class SamplingPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         sizeComboBox = new javax.swing.JComboBox<>();
         lihatDataButton = new javax.swing.JButton();
+        simpanSampelButton = new javax.swing.JButton();
 
         pilihFileButton.setText("Pilih File");
         pilihFileButton.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +137,14 @@ public class SamplingPanel extends javax.swing.JPanel {
             }
         });
 
+        simpanSampelButton.setText("Simpan Sampel");
+        simpanSampelButton.setEnabled(false);
+        simpanSampelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanSampelButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,7 +178,9 @@ public class SamplingPanel extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lihatDataButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(ambilSampelButton)))
+                                        .addComponent(ambilSampelButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(simpanSampelButton)))
                                 .addGap(0, 56, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pilihFileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +220,8 @@ public class SamplingPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ambilSampelButton)
-                    .addComponent(lihatDataButton))
+                    .addComponent(lihatDataButton)
+                    .addComponent(simpanSampelButton))
                 .addContainerGap(147, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -224,7 +238,7 @@ public class SamplingPanel extends javax.swing.JPanel {
         if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
             filePathTextField.setText(chooser.getSelectedFile().toString());
             //Baca file csv, lalu simpan datanya
-            CSVHandler ch = new CSVHandler(chooser.getSelectedFile().toString());
+            CSVReader ch = new CSVReader(chooser.getSelectedFile().toString());
             headers = ch.getHeaders();
             values = ch.getValues();
             sizeComboBox.setModel(new DefaultComboBoxModel<>(headers));
@@ -266,7 +280,7 @@ public class SamplingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ppsButtonActionPerformed
 
     private void ambilSampelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambilSampelButtonActionPerformed
-        //TODO: tulis ke output csv
+        //TODO: pindah ke Controller kalau bisa
         if(selectedMethod == null){
             JOptionPane.showMessageDialog(this, "Silakan memilih metode sampling terlebih dahulu");
             return;
@@ -290,23 +304,20 @@ public class SamplingPanel extends javax.swing.JPanel {
                 sc.setSizeIndex(sizeComboBox.getSelectedIndex());
             }
             
-            List<String[]> samples;
             try {
                 samples = sc.getSamples();
+                JOptionPane.showMessageDialog(this, "Berhasil mengambil sampel");
+                simpanSampelButton.setEnabled(true);
+                TableFrame tableFrame = new TableFrame(headers, samples);
+                tableFrame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
                 samples = null;
+                JOptionPane.showMessageDialog(this, "Gagal mengambil sampel");
+                simpanSampelButton.setEnabled(false);
             }
 
-            String samplePrinter = "";
-            if(samples == null){
-                JOptionPane.showMessageDialog(this, "Gagal mengambil sampel");
-                return;
-            }
-            for (String[] strings : samples) {
-                samplePrinter += String.join(" ", strings) + "\n";
-            }
-            JOptionPane.showMessageDialog(this, samplePrinter);
+            
         }
         else{
             JOptionPane.showMessageDialog(this, "Belum ada file yang dipilih");
@@ -323,6 +334,16 @@ public class SamplingPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lihatDataButtonActionPerformed
 
+    private void simpanSampelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanSampelButtonActionPerformed
+        FileController fc = new FileController();
+        if(fc.saveFileCSV(samples, headers)){
+            JOptionPane.showMessageDialog(this, "Berhasil menyimpan sample");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan sampel");
+        }
+    }//GEN-LAST:event_simpanSampelButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ambilSampelButton;
@@ -337,6 +358,7 @@ public class SamplingPanel extends javax.swing.JPanel {
     private javax.swing.ButtonGroup methodButtonGroup;
     private javax.swing.JButton pilihFileButton;
     private javax.swing.JRadioButton ppsButton;
+    private javax.swing.JButton simpanSampelButton;
     private javax.swing.JRadioButton simpleWORRadioButton;
     private javax.swing.JRadioButton simpleWRRadioButton;
     private javax.swing.JComboBox<String> sizeComboBox;
