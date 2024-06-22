@@ -4,6 +4,7 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import view.LoginPanel;
 
@@ -12,12 +13,19 @@ import view.LoginPanel;
  * @author fatih
  */
 public class MainFrame extends javax.swing.JFrame {
+    public static boolean isLogin = false;
+    public static String user_id = "GUEST";
+    public static LoginPanel loginPanel;
+    public static DatabaseTablePanel databaseTablePanel;
+    public static SamplingPanel samplingPanel;
+
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        jScrollPane1.setViewportView(new LoginPanel(jScrollPane1));
+        loginPanel = new LoginPanel(jScrollPane1);
+        jScrollPane1.setViewportView(loginPanel);
     }
 
     /**
@@ -30,6 +38,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu = new javax.swing.JMenu();
+        lihatDatabaseButton = new javax.swing.JMenuItem();
+        samplingMenuButton = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sampling APP");
@@ -40,6 +52,28 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        jMenu.setText("Menu");
+
+        lihatDatabaseButton.setText("Lihat Database");
+        lihatDatabaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lihatDatabaseButtonActionPerformed(evt);
+            }
+        });
+        jMenu.add(lihatDatabaseButton);
+
+        samplingMenuButton.setText("Sampling Menu");
+        samplingMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                samplingMenuButtonActionPerformed(evt);
+            }
+        });
+        jMenu.add(samplingMenuButton);
+
+        jMenuBar1.add(jMenu);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -48,12 +82,30 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lihatDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihatDatabaseButtonActionPerformed
+        if(isLogin){
+            jScrollPane1.setViewportView(databaseTablePanel);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Silakan Login terlebih dahulu");
+        }
+    }//GEN-LAST:event_lihatDatabaseButtonActionPerformed
+
+    private void samplingMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_samplingMenuButtonActionPerformed
+        if(isLogin){
+            jScrollPane1.setViewportView(samplingPanel);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Silakan Login terlebih dahulu");
+        }
+    }//GEN-LAST:event_samplingMenuButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -91,6 +143,10 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem lihatDatabaseButton;
+    private javax.swing.JMenuItem samplingMenuButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,7 +30,7 @@ public class Login {
 
     public boolean isRegistered(String username, String password){
         try{
-            Connection connection = new DatabaseConnection().getConnection();
+            Connection connection = new DatabaseConnection().getConnection(System.getProperty("user.dir") + "\\src\\model\\database\\database.db");
             String sql = "SELECT * FROM user WHERE username = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);

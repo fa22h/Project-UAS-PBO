@@ -13,11 +13,11 @@ import java.sql.DriverManager;
  */
 public class DatabaseConnection {
 
-    public Connection getConnection(){
+    public Connection getConnection(String path){
         Connection connection = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "\\src\\model\\database.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + path);
         } catch (Exception e) {
             e.printStackTrace();
         }

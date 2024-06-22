@@ -123,7 +123,11 @@ public class LoginPanel extends javax.swing.JPanel {
         Login login = new Login();
         if(login.isRegistered(usernameTextField.getText(), String.valueOf(passwordField.getPassword()))){
             JOptionPane.showMessageDialog(this, "Selamat Datang " + login.getNama());
-            jScrollPane.setViewportView(new SamplingPanel(jScrollPane, login.getUser_id()));
+            MainFrame.isLogin = true;
+            MainFrame.user_id = login.getUser_id();
+            MainFrame.databaseTablePanel = new DatabaseTablePanel(jScrollPane);
+            MainFrame.samplingPanel = new SamplingPanel(jScrollPane, login.getUser_id());
+            jScrollPane.setViewportView(MainFrame.samplingPanel);
         }
         else{
             JOptionPane.showMessageDialog(this, "Username atau Password salah!");
@@ -131,7 +135,8 @@ public class LoginPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void guestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guestButtonActionPerformed
-        jScrollPane.setViewportView(new SamplingPanel(jScrollPane));
+        MainFrame.samplingPanel = new SamplingPanel(jScrollPane);
+        jScrollPane.setViewportView(MainFrame.samplingPanel);
     }//GEN-LAST:event_guestButtonActionPerformed
 
 

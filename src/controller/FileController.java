@@ -7,14 +7,10 @@ package controller;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.CSVReader;
 import model.CSVWriter;
-import view.SamplingPanel;
 
 /**
  *
