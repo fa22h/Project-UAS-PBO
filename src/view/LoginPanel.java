@@ -4,7 +4,6 @@
  */
 package view;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 

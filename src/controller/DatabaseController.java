@@ -6,7 +6,6 @@ package controller;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -165,7 +164,7 @@ public class DatabaseController {
 
     public boolean deleteTable(String userId, String table){
         String sql = "DROP TABLE " + table;
-        
+
         try(Connection conn = dc.getConnection(System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + userId  + ".db");
             Statement stmt = conn.createStatement()){
 

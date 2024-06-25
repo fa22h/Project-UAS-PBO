@@ -19,10 +19,6 @@ public class SamplingController {
     private int sampleCount;
     private SamplingMethod sm;
 
-    public void setSizeIndex(int size) {
-        sm.setSizeIndex(size);
-    }
-
     public SamplingController(List<String[]> population, String samplingMethod, int sampleCount){
         this.population = population;
         this.sampleCount = sampleCount;
@@ -40,6 +36,10 @@ public class SamplingController {
         }
     }
 
+    public void setSizeIndex(int size) {
+        sm.setSizeIndex(size);
+    }
+    
     public List<String[]> getSamples(){
         List<String[]> samples = sm.getSample(population, sampleCount, population.size());
         return samples;
