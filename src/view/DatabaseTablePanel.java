@@ -7,10 +7,10 @@ package view;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import controller.DatabaseController;
-import model.DatabaseConnection;
 
 /**
  *
@@ -19,6 +19,7 @@ import model.DatabaseConnection;
 public class DatabaseTablePanel extends javax.swing.JPanel {
     private String[] table;
     private JScrollPane jScrollPane;
+    private DatabaseController dc;
     /**
      * Creates new form DatabaseTable
      */
@@ -26,6 +27,7 @@ public class DatabaseTablePanel extends javax.swing.JPanel {
         initComponents();
         setTable();
         this.jScrollPane = jScrollPane;
+        dc = new DatabaseController();
         tableComboBox.setModel(new DefaultComboBoxModel<>(table));
     }
 
@@ -42,6 +44,7 @@ public class DatabaseTablePanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         tableComboBox = new javax.swing.JComboBox<>();
         bukaButton = new javax.swing.JButton();
+        hapusButton = new javax.swing.JButton();
 
         judulLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         judulLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -58,6 +61,14 @@ public class DatabaseTablePanel extends javax.swing.JPanel {
             }
         });
 
+        hapusButton.setBackground(new java.awt.Color(255, 0, 51));
+        hapusButton.setText("HAPUS");
+        hapusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -65,11 +76,14 @@ public class DatabaseTablePanel extends javax.swing.JPanel {
             .addComponent(judulLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(115, 115, 115)
-                .addComponent(tableComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bukaButton)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGap(140, 140, 140)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(hapusButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bukaButton))
+                    .addComponent(tableComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,31 +93,48 @@ public class DatabaseTablePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tableComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tableComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bukaButton))
-                .addContainerGap(279, Short.MAX_VALUE))
+                    .addComponent(bukaButton)
+                    .addComponent(hapusButton))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void setTable(){
         String path = System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + MainFrame.user_id  + ".db";
-        DatabaseController dc = new DatabaseController();
 
         this.table = dc.getTable(path).toArray(new String[0]);
     }
+    
     private void bukaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bukaButtonActionPerformed
         String path = System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + MainFrame.user_id  + ".db";
-        DatabaseController dc = new DatabaseController();
         String[] headers = dc.getColumnName((String)tableComboBox.getSelectedItem(), path);
         List<String[]> values = dc.getData((String) tableComboBox.getSelectedItem(), path);
         TableFrame tFrame = new TableFrame(headers, values);
         tFrame.setVisible(true);
     }//GEN-LAST:event_bukaButtonActionPerformed
 
+    private void hapusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusButtonActionPerformed
+        int choice = JOptionPane.showConfirmDialog(this, "Apakah anda ingin menghapus tabel " + (String)tableComboBox.getSelectedItem());
+        
+        if(choice == JOptionPane.YES_OPTION){
+            if(dc.deleteTable(MainFrame.user_id, (String)tableComboBox.getSelectedItem())){
+                setTable();
+                tableComboBox.setModel(new DefaultComboBoxModel<>(table));
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus tabel!");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Gagal menghapus tabel!");
+            }
+        }
+    }//GEN-LAST:event_hapusButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bukaButton;
+    private javax.swing.JButton hapusButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel judulLabel;
     private javax.swing.JComboBox<String> tableComboBox;

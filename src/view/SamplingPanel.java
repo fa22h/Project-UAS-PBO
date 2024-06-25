@@ -19,8 +19,6 @@ import controller.SamplingController;
 
 import java.util.List;
 
-import model.CSVReader;
-
 /**
  *
  * @author fatih
@@ -33,6 +31,8 @@ public class SamplingPanel extends javax.swing.JPanel {
     private List<String[]> samples;
     private String user_id = "GUEST";
     private FileController fc;
+    private SamplingController sc;
+    private DatabaseController dc;
 
     /**
      * Creates new form SamplingPanel
@@ -40,6 +40,7 @@ public class SamplingPanel extends javax.swing.JPanel {
     public SamplingPanel(JScrollPane jScrollPane) {
         initComponents();
         fc = new FileController();
+        dc = new DatabaseController();
         this.jScrollPane = jScrollPane;
         userIdLabel.setText("User ID: " + user_id);
     }
@@ -47,6 +48,7 @@ public class SamplingPanel extends javax.swing.JPanel {
     public SamplingPanel(JScrollPane jScrollPane, String user_id){
         initComponents();
         fc = new FileController();
+        dc = new DatabaseController();
         this.jScrollPane = jScrollPane;
         this.user_id = user_id;
         userIdLabel.setText("User ID: " + user_id);
@@ -271,7 +273,6 @@ public class SamplingPanel extends javax.swing.JPanel {
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.setFileFilter(new FileNameExtensionFilter("File CSV (*.csv)", "csv"));
 
-        //TODO: bikin class controller buat ini
         if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
             String path = chooser.getSelectedFile().toString();
             filePathTextField.setText(path);
@@ -323,7 +324,7 @@ public class SamplingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ppsButtonActionPerformed
 
     private void ambilSampelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambilSampelButtonActionPerformed
-        //TODO: pindah ke Controller kalau bisa
+
         if(selectedMethod == null){
             JOptionPane.showMessageDialog(this, "Silakan memilih metode sampling terlebih dahulu");
             return;
@@ -341,7 +342,7 @@ public class SamplingPanel extends javax.swing.JPanel {
                 }
             }
 
-            SamplingController sc = new SamplingController(values, selectedMethod, Integer.parseInt(jumlahSampelSpinner.getValue().toString()));
+            sc = new SamplingController(values, selectedMethod, Integer.parseInt(jumlahSampelSpinner.getValue().toString()));
             //set size pps
             if(selectedMethod.equalsIgnoreCase("pps")){
                 sc.setSizeIndex(sizeComboBox.getSelectedIndex());
@@ -393,6 +394,7 @@ public class SamplingPanel extends javax.swing.JPanel {
         String tableName = "default";
         tableName = JOptionPane.showInputDialog(this, "Masukkan nama tabel: ");
         if(dc.saveToDatabase(user_id, headers, samples, tableName)){
+            MainFrame.databaseTablePanel = new DatabaseTablePanel(jScrollPane);
             JOptionPane.showMessageDialog(this, "Berhasil menyimpan ke database");
         }
         else{

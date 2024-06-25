@@ -16,7 +16,6 @@ import java.util.List;
 public abstract class SamplingMethod {
     private int sizeIndex;
     public int[] getRandomInt(int sampleCount, int populationCount){
-        //cek jumlah angka random yang ingin didapat
         if(sampleCount < 1){
             return null;
         }

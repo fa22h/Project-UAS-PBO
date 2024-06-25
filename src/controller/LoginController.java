@@ -9,16 +9,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import model.DatabaseConnection;
+import model.Hasher;
 
 /**
  *
  * @author fatih
  */
-public class Login {
-    String username_db;
-    String password_db;
-    String user_id;
-    String nama;
+public class LoginController {
+    private String username_db;
+    private String password_db;
+    private String user_id;
+    private String nama;
+    private DatabaseConnection dc;
+
+    public LoginController(){
+        dc = new DatabaseConnection();
+    }
 
     public String getUser_id() {
         return user_id;
@@ -30,7 +36,7 @@ public class Login {
 
     public boolean isRegistered(String username, String password){
         try{
-            Connection connection = new DatabaseConnection().getConnection(System.getProperty("user.dir") + "\\src\\model\\database\\database.db");
+            Connection connection = dc.getConnection(System.getProperty("user.dir") + "\\src\\model\\database\\database.db");
             String sql = "SELECT * FROM user WHERE username = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
@@ -52,7 +58,7 @@ public class Login {
             preparedStatement.close();
             connection.close();
 
-            if(username.equals(username_db) && password.equals(password_db)){
+            if(username.equals(username_db) && Hasher.getHash(password).equals(password_db)){
                 return true;
             }
             else{
@@ -63,4 +69,5 @@ public class Login {
             return false;
         }
     }
+
 }

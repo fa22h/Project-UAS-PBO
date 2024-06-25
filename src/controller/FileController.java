@@ -19,6 +19,12 @@ import model.CSVWriter;
 public class FileController {
     private String[] headers;
     private List<String[]> values;
+    private CSVReader cr;
+    private CSVWriter cw;
+
+    public FileController(){
+        cw = new CSVWriter();
+    }
 
     public String[] getHeaders() {
         return headers;
@@ -37,7 +43,6 @@ public class FileController {
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-            CSVWriter cw = new CSVWriter();
             if(cw.writeCSV(chooser.getSelectedFile().toString(), headers, values)){
                 return true;
             }
@@ -48,9 +53,9 @@ public class FileController {
     public boolean readFileCSV(String path){
         //Baca file csv, lalu simpan datanya
         try {
-            CSVReader ch = new CSVReader(path);
-            headers = ch.getHeaders();
-            values = ch.getValues();
+            cr = new CSVReader(path);
+            headers = cr.getHeaders();
+            values = cr.getValues();
             return true;
         } catch (Exception e) {
             return false;

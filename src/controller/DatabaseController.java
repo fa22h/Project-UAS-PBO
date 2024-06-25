@@ -6,6 +6,7 @@ package controller;
 
 import java.sql.Statement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -19,9 +20,14 @@ import model.DatabaseConnection;
  * @author fatih
  */
 public class DatabaseController {
-    public boolean saveToDatabase(String user_ID, String[] headers, List<String[]> values, String tableName){
-        DatabaseConnection dc = new DatabaseConnection();
-        try(Connection connection = dc.getConnection(System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + user_ID  + ".db");
+    private DatabaseConnection dc;
+
+    public DatabaseController(){
+        dc = new DatabaseConnection();
+    }
+
+    public boolean saveToDatabase(String userId, String[] headers, List<String[]> values, String tableName){
+        try(Connection connection = dc.getConnection(System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + userId  + ".db");
             Statement stmt = connection.createStatement()) {
             
             //cek apakah nama tabel sudah ada
@@ -109,7 +115,7 @@ public class DatabaseController {
     public String[] getColumnName(String table, String path){
         String query = "SELECT * FROM " + table + " LIMIT 1;";
         List<String> columnList = new ArrayList<String>();
-        DatabaseConnection dc = new DatabaseConnection();
+
         try(Connection conn = dc.getConnection(path);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);){
@@ -132,7 +138,7 @@ public class DatabaseController {
     public List<String[]> getData(String table, String path){
         List<String[]> data = new ArrayList<String[]>();
         String query = "SELECT * FROM " + table;
-        DatabaseConnection dc = new DatabaseConnection();
+
         try(Connection conn = dc.getConnection(path);
             Statement stmt = conn.createStatement()){
             
@@ -154,6 +160,22 @@ public class DatabaseController {
         catch(SQLException e){
             System.err.println(e.getMessage());
             return null;
+        }
+    }
+
+    public boolean deleteTable(String userId, String table){
+        String sql = "DROP TABLE " + table;
+        
+        try(Connection conn = dc.getConnection(System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + userId  + ".db");
+            Statement stmt = conn.createStatement()){
+
+            stmt.execute(sql);
+            
+            return true;
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+            return false;
         }
     }
 }

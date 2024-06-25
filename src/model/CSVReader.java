@@ -56,18 +56,7 @@ public class CSVReader {
                     values.add(row.split(delimiter));
                 }
             }
-/*
-            //TODO: Hapus test
-            for (String string : headers) {
-                System.out.print(string + " ");
-            }
-            for (String[] string : values) {
-                for (String string2 : string) {
-                    System.out.print(string2 + " ");
-                }
-                System.out.println();                
-            }
-*/
+
         }catch(IOException e){
             System.err.println(e.getMessage());
         }
