@@ -25,9 +25,9 @@ public class DatabaseTablePanel extends javax.swing.JPanel {
      */
     public DatabaseTablePanel(JScrollPane jScrollPane) {
         initComponents();
+        dc = new DatabaseController();
         setTable();
         this.jScrollPane = jScrollPane;
-        dc = new DatabaseController();
         tableComboBox.setModel(new DefaultComboBoxModel<>(table));
     }
 
@@ -103,13 +103,13 @@ public class DatabaseTablePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void setTable(){
-        String path = System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + MainFrame.user_id  + ".db";
+        String path = System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + MainFrame.userId  + ".db";
 
         this.table = dc.getTable(path).toArray(new String[0]);
     }
     
     private void bukaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bukaButtonActionPerformed
-        String path = System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + MainFrame.user_id  + ".db";
+        String path = System.getProperty("user.dir") + "\\src\\model\\database\\data_user" + MainFrame.userId  + ".db";
         String[] headers = dc.getColumnName((String)tableComboBox.getSelectedItem(), path);
         List<String[]> values = dc.getData((String) tableComboBox.getSelectedItem(), path);
         TableFrame tFrame = new TableFrame(headers, values);
@@ -120,7 +120,7 @@ public class DatabaseTablePanel extends javax.swing.JPanel {
         int choice = JOptionPane.showConfirmDialog(this, "Apakah anda ingin menghapus tabel " + (String)tableComboBox.getSelectedItem());
         
         if(choice == JOptionPane.YES_OPTION){
-            if(dc.deleteTable(MainFrame.user_id, (String)tableComboBox.getSelectedItem())){
+            if(dc.deleteTable(MainFrame.userId, (String)tableComboBox.getSelectedItem())){
                 setTable();
                 tableComboBox.setModel(new DefaultComboBoxModel<>(table));
                 JOptionPane.showMessageDialog(this, "Berhasil menghapus tabel!");

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import controller.LoginController;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -25,6 +26,10 @@ public class LoginPanel extends javax.swing.JPanel {
         initComponents();
         this.jScrollPane = jScrollPane;
         lc = new LoginController();
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
     }
 
     /**
@@ -45,7 +50,7 @@ public class LoginPanel extends javax.swing.JPanel {
         guestButton = new javax.swing.JButton();
         registerButton = new javax.swing.JButton();
 
-        setToolTipText("Login");
+        setToolTipText("");
         setPreferredSize(new java.awt.Dimension(460, 460));
 
         loginTextLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -134,11 +139,11 @@ public class LoginPanel extends javax.swing.JPanel {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
 
         if(lc.isRegistered(usernameTextField.getText(), String.valueOf(passwordField.getPassword()))){
-            JOptionPane.showMessageDialog(this, "Selamat Datang " + lc.getNama());
+            JOptionPane.showMessageDialog(this, "Selamat Datang " + lc.getUser().getNama());
             MainFrame.isLogin = true;
-            MainFrame.user_id = lc.getUser_id();
+            MainFrame.userId = lc.getUser().getUserId();
             MainFrame.databaseTablePanel = new DatabaseTablePanel(jScrollPane);
-            MainFrame.samplingPanel = new SamplingPanel(jScrollPane, lc.getUser_id());
+            MainFrame.samplingPanel = new SamplingPanel(jScrollPane, lc.getUser().getUserId());
             jScrollPane.setViewportView(MainFrame.samplingPanel);
         }
         else{

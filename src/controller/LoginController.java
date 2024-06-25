@@ -10,31 +10,28 @@ import java.sql.ResultSet;
 
 import model.DatabaseConnection;
 import model.Hasher;
+import model.User;
 
 /**
  *
  * @author fatih
  */
 public class LoginController {
-    private String username_db;
-    private String password_db;
-    private String user_id;
-    private String nama;
+    private User user;
     private DatabaseConnection dc;
 
     public LoginController(){
         dc = new DatabaseConnection();
+        user = new User();
     }
-
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public String getNama() {
-        return nama;
+    
+    public User getUser(){
+        return user;
     }
 
     public boolean isRegistered(String username, String password){
+            String username_db = "";
+            String password_db = "";
         try{
             Connection connection = dc.getConnection(System.getProperty("user.dir") + "\\src\\model\\database\\database.db");
             String sql = "SELECT * FROM user WHERE username = ?";
@@ -50,8 +47,8 @@ public class LoginController {
             while(rs.next()){
                 username_db = rs.getString("username");
                 password_db = rs.getString("password");
-                user_id = rs.getString("user_id");
-                nama = rs.getString("nama");
+                user.setUserId(rs.getString("user_id"));
+                user.setNama(rs.getString("nama"));
             }
 
             rs.close();
@@ -66,6 +63,8 @@ public class LoginController {
             }
         }
         catch(Exception e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

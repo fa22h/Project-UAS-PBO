@@ -6,7 +6,6 @@ package view;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import view.LoginPanel;
 
 /**
  *
@@ -14,7 +13,7 @@ import view.LoginPanel;
  */
 public class MainFrame extends javax.swing.JFrame {
     public static boolean isLogin = false;
-    public static String user_id = "GUEST";
+    public static String userId = "GUEST";
     public static LoginPanel loginPanel;
     public static DatabaseTablePanel databaseTablePanel;
     public static SamplingPanel samplingPanel;
@@ -42,6 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu = new javax.swing.JMenu();
         lihatDatabaseButton = new javax.swing.JMenuItem();
         samplingMenuButton = new javax.swing.JMenuItem();
+        logoutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sampling APP");
@@ -69,6 +69,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu.add(samplingMenuButton);
+
+        logoutMenuItem.setText("Logout");
+        logoutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu.add(logoutMenuItem);
 
         jMenuBar1.add(jMenu);
 
@@ -106,6 +114,13 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Silakan Login terlebih dahulu");
         }
     }//GEN-LAST:event_samplingMenuButtonActionPerformed
+
+    private void logoutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuItemActionPerformed
+        userId = "GUEST";
+        isLogin = false;
+        loginPanel.getPasswordField().setText("");
+        jScrollPane1.setViewportView(loginPanel);
+    }//GEN-LAST:event_logoutMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,6 +162,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem lihatDatabaseButton;
+    private javax.swing.JMenuItem logoutMenuItem;
     private javax.swing.JMenuItem samplingMenuButton;
     // End of variables declaration//GEN-END:variables
 }
